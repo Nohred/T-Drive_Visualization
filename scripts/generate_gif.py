@@ -53,7 +53,7 @@ def generate_gif_from_images(image_folder: str, output_gif: str, duration=0.5):
 
 def generate_slider_from_images(image_folder: str, output_html: str):
     """
-    Genera un HTML con slider para explorar imágenes PNG (como un visualizador interactivo).
+    Genera un HTML con slider para explorar imágenes PNG, mostrando nombre del archivo (día y hora).
     """
     files = sorted([f for f in os.listdir(image_folder) if f.endswith('.png')])
     if not files:
@@ -62,11 +62,11 @@ def generate_slider_from_images(image_folder: str, output_html: str):
 
     slider_steps = len(files)
     image_paths = [f"images/{file}" for file in files]
-
+    image_labels = [file.replace("map_", "").replace(".png", "").replace("_", " ") + ":00" for file in files]
 
     html_content = f"""
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>Visualización de Tráfico - Slider</title>
@@ -87,6 +87,10 @@ def generate_slider_from_images(image_folder: str, output_html: str):
             width: 80%;
             margin-top: 20px;
         }}
+        #label {{
+            margin-top: 10px;
+            font-size: 18px;
+        }}
     </style>
 </head>
 <body>
@@ -94,16 +98,17 @@ def generate_slider_from_images(image_folder: str, output_html: str):
     <img id="trafficImage" src="{image_paths[0]}" alt="Tráfico por hora">
     <br>
     <input type="range" min="0" max="{slider_steps - 1}" value="0" id="slider" oninput="updateImage(this.value)">
-    <p id="label">Imagen 1 de {slider_steps}</p>
+    <p id="label">{image_labels[0]}</p>
 
     <script>
         const imagePaths = {image_paths};
+        const imageLabels = {image_labels};
         const imgElement = document.getElementById('trafficImage');
         const label = document.getElementById('label');
 
         function updateImage(index) {{
             imgElement.src = imagePaths[index];
-            label.textContent = "Imagen " + (parseInt(index) + 1) + " de {slider_steps}";
+            label.textContent = imageLabels[index];
         }}
     </script>
 </body>
@@ -115,3 +120,24 @@ def generate_slider_from_images(image_folder: str, output_html: str):
         f.write(html_content)
 
     print(f"Visualizador HTML con slider generado: {output_html}")
+
+
+
+
+if __name__ == "__main__":
+
+     # # Parámetros de rutas
+    html_folder = "output/maps"
+    image_folder = "output/images"
+    gif_path = "output/traffic.gif"
+    chromedriver_path = chromedriver_path = r"C:\CodeTools\ChromeDriver\chromedriver.exe"# ruta de chromedriver
+
+    # # Generar imágenes desde HTML
+    capture_maps_to_images(html_folder, image_folder, driver_path=chromedriver_path)
+
+    # # Crear el GIF
+    # generate_gif_from_images(image_folder, gif_path, duration=0.75)
+
+    generate_slider_from_images(
+    image_folder="output/images",
+    output_html="output/traffic_slider.html")

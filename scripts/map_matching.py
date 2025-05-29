@@ -4,7 +4,8 @@ import geopandas as gpd
 import osmnx as ox
 from shapely.geometry import Point
 
-def map_match_gps(df: pd.DataFrame) -> pd.DataFrame:
+# def map_match_gps(df: pd.DataFrame) -> pd.DataFrame:
+def map_match_gps():
     """
     Asocia cada punto GPS con la calle más cercana usando OSMnx.
     Devuelve un DataFrame con una nueva columna 'nearest_edge'.
