@@ -121,9 +121,6 @@ def generate_slider_from_images(image_folder: str, output_html: str):
 
     print(f"Visualizador HTML con slider generado: {output_html}")
 
-
-
-
 if __name__ == "__main__":
 
      # # Parámetros de rutas

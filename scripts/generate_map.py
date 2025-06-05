@@ -21,7 +21,6 @@ def aggregate_speed_by_edge_and_hour(df: pd.DataFrame) -> pd.DataFrame:
     print(f"Total de filas agregadas (tras filtrado): {len(grouped)}")
     return grouped
 
-
 def get_color(speed, max_speed):
     """
     Devuelve un color degradado de rojo (tráfico pesado) a amarillo (fluido).
@@ -34,7 +33,6 @@ def get_color(speed, max_speed):
     g = int(255 * norm)
     b = 0
     return f"#{r:02x}{g:02x}{b:02x}"
-
 
 def generate_folium_map(speed_by_edge: pd.DataFrame, edges_gpkg: str, output_folder="output/maps"):
     """
@@ -51,7 +49,7 @@ def generate_folium_map(speed_by_edge: pd.DataFrame, edges_gpkg: str, output_fol
     max_speed = speed_by_edge['avg_speed_kmh'].max()
 
     for hour, group in speed_by_edge.groupby('hour'):
-        print(f"🕒 Procesando {hour}")
+        print(f"Procesando {hour}")
         m = folium.Map(location=[39.9, 116.4], zoom_start=11, tiles="CartoDB dark_matter")
 
         merged = edges.merge(group, how='inner', left_on=['u', 'v'], right_on=['edge_u', 'edge_v'])
@@ -69,4 +67,4 @@ def generate_folium_map(speed_by_edge: pd.DataFrame, edges_gpkg: str, output_fol
         hour_str = hour.strftime("%Y-%m-%d_%H")
         map_path = os.path.join(output_folder, f"map_{hour_str}.html")
         m.save(map_path)
-        print(f"🗺️  Mapa guardado: {map_path}")
+        print(f"Mapa guardado: {map_path}")
