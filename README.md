@@ -18,7 +18,7 @@ El propósito principal es detectar patrones de tráfico, identificar zonas de c
 
 ## Datos
 
-Los datos provienen del proyecto [GeoLife de Microsoft Research](https://www.microsoft.com/en-us/research/project/geolife-building-social-networks-using-human-location-history/), que contiene trayectorias de taxis en Beijing durante febrero de 2008.
+Los datos provienen del proyecto [T-Drive Trajectory Dataset]([https://www.microsoft.com/en-us/research/project/geolife-building-social-networks-using-human-location-history/](https://www.kaggle.com/datasets/arashnic/tdriver)), que contiene trayectorias de taxis en Beijing durante febrero de 2008.
 
 > **Nota:** Por motivos de tamaño, los archivos procesados y pesados han sido excluidos del repositorio mediante `.gitignore`.
 
